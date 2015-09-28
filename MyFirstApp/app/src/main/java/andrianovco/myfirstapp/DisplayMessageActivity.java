@@ -18,7 +18,10 @@ public class DisplayMessageActivity extends ActionBarActivity {
         String message = intent.getStringExtra(MyActivity.EXTRA_MESSAGE);
         TextView textView = new TextView(this);
         textView.setTextSize(40);
-        textView.setText(message);
+        textView.setText(R.string.hello_world);
+        textView.append("\n");
+        textView.append(message);
+
         setContentView(textView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
