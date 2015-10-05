@@ -2,10 +2,12 @@ package andrianovco.myfirstapp;
 
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -42,6 +44,18 @@ public class MainActivity extends FragmentActivity
         transaction.addToBackStack(null);
 
         transaction.commit();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if (getIntent().getAction().equals(NfcAdapter.ACTION_TAG_DISCOVERED)
+                || (getIntent().getAction().equals(NfcAdapter.ACTION_NDEF_DISCOVERED )
+                || (getIntent().getAction().equals(NfcAdapter.ACTION_TECH_DISCOVERED)))){
+            processIntent(getIntent());
+        }
 
     }
 
