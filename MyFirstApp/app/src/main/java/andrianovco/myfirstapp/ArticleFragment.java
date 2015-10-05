@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class ArticleFragment extends Fragment {
-    public static final String ARG_POSITION = "position";
+    public static final String ARG_STRING = "position";
     int mCurrentPosition = -1;
 
 
@@ -19,7 +17,7 @@ public class ArticleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (savedInstanceState!=null){
-            mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
+            mCurrentPosition = savedInstanceState.getInt(ARG_STRING);
         }
         return inflater.inflate(R.layout.article_view, container, false);
     }
@@ -30,22 +28,21 @@ public class ArticleFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args !=null){
-            updateArticleView(args.getInt(ARG_POSITION));
-        } else if (mCurrentPosition != -1){
-            updateArticleView(mCurrentPosition);
+            updateArticleView(args.getString(ARG_STRING));
+        } else {
+            updateArticleView("NO TEXT RETRIEVED");
         }
     }
 
-    public void updateArticleView(int position) {
+    public void updateArticleView(String text) {
         TextView article = (TextView) getActivity().findViewById(R.id.article);
-        article.setText(Ipsum.Articles[position]);
-        mCurrentPosition = position;
+        article.setText(text);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
 
-        outState.putInt(ARG_POSITION, mCurrentPosition);
+        outState.putInt(ARG_STRING, mCurrentPosition);
     }
 }
